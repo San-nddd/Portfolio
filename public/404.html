@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages SPA fallback: redirect any deep-link to the root so the
+      // client-side router can take over. Adjust the base path if needed.
+      var base = '/My-porto/'
+      var segment = window.location.pathname.replace(base, '')
+      if (segment && segment !== 'index.html') {
+        window.location.replace(base + '?' + segment)
+      }
+    </script>
+  </head>
+  <body>
+    <a href="/My-porto/">Go to the portfolio</a>
+  </body>
+</html>

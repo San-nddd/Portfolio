@@ -1,0 +1,221 @@
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Moon, Sun, Download, Menu, X } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
+import { navLinks, personalInfo, logoPath } from '../data'
+
+export function Navbar() {
+  const { theme, toggleTheme } = useTheme()
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState(
+    () => window.location.hash.replace('#', '') || navLinks[0].toLowerCase()
+  )
+  const activeSectionRef = useRef(activeSection)
+  activeSectionRef.current = activeSection
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Scroll-spy: highlight the section currently in view, not just the
+  // last clicked link. Runs on scroll/resize, rAF-throttled.
+  useEffect(() => {
+    let raf = 0
+    const ids = navLinks.map((l) => l.toLowerCase())
+    const updateSpy = () => {
+      const offset = 128 // fixed navbar height + breathing room
+      let current = ids[0]
+      for (const id of ids) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= offset) current = id
+      }
+      if (activeSectionRef.current !== current) {
+        activeSectionRef.current = current
+        setActiveSection(current)
+      }
+    }
+    const schedule = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(updateSpy)
+    }
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule, { passive: true })
+    updateSpy()
+    return () => {
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  useEffect(() => {
+    const onHashChange = () =>
+      setActiveSection(window.location.hash.replace('#', ''))
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  return (
+    <motion.header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[var(--bg)]/80 backdrop-blur-xl shadow-sm'
+          : 'bg-transparent'
+      }`}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.3, duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+    >
+      <nav className="site-container flex items-center justify-between py-4">
+        
+        <motion.a
+          href="#"
+          className="flex items-center"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <img
+            src={logoPath}
+            alt={`${personalInfo.name} logo`}
+            className="h-9 w-9 object-contain"
+            draggable={false}
+          />
+        </motion.a>
+
+        {/* Center links */}
+        <div className="hidden items-center gap-1.5 md:flex">
+          {navLinks.map((link) => {
+            const id = link.toLowerCase()
+            const active = activeSection === id
+            return (
+              <a
+                key={link}
+                href={`#${id}`}
+                className="relative rounded-full px-4 py-2 text-sm font-medium text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
+              >
+                {active && (
+                  <motion.span
+                    layoutId="activeTab"
+                    className="absolute inset-0 rounded-full border border-[#6C63FF]/40 bg-[#6C63FF]/10"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{link}</span>
+              </a>
+            )
+          })}
+        </div>
+
+        {/* Right controls */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <motion.button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <motion.div
+              key={theme}
+              initial={{ rotate: 0, opacity: 0 }}
+              animate={{ rotate: 180, opacity: 1 }}
+              transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            >
+              {theme === 'dark' ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </motion.div>
+          </motion.button>
+
+          <motion.a
+            href={personalInfo.resumeLink}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden items-center gap-2 rounded-full bg-[#6C63FF] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 transition-colors hover:bg-[#5a54e0] sm:flex"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <Download className="h-4 w-4" /> Resume
+          </motion.a>
+
+          {/* Mobile menu toggle */}
+          <motion.button
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileOpen}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50 md:hidden"
+            whileTap={{ scale: 0.9 }}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={mobileOpen ? 'close' : 'open'}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+              >
+                {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </motion.span>
+            </AnimatePresence>
+          </motion.button>
+        </div>
+      </nav>
+
+      {/* Mobile dropdown navigation */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
+            className="overflow-hidden border-t border-[var(--muted)]/10 bg-[var(--bg)]/95 backdrop-blur-xl md:hidden"
+          >
+            <div className="site-container flex flex-col gap-1 py-4">
+              {navLinks.map((link, i) => {
+                const id = link.toLowerCase()
+                const active = activeSection === id
+                return (
+                  <motion.a
+                    key={link}
+                    href={`#${id}`}
+                    onClick={() => setMobileOpen(false)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 + i * 0.05 }}
+                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                      active
+                        ? 'border border-[#6C63FF]/40 bg-[#6C63FF]/10 text-[#6C63FF]'
+                        : 'text-[var(--fg)] hover:bg-[var(--muted)]/5'
+                    }`}
+                  >
+                    {link}
+                    <span className="font-mono text-[10px] text-[var(--muted)]">
+                      0{i + 1}
+                    </span>
+                  </motion.a>
+                )
+              })}
+              <motion.a
+                href={personalInfo.resumeLink}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[#6C63FF] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 sm:hidden"
+              >
+                <Download className="h-4 w-4" /> Resume
+              </motion.a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </motion.header>
+  )
+}

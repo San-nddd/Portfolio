@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="225" viewBox="0 0 300 225">
+  <rect width="300" height="225" fill="#0D0D0D"/>
+  <rect width="300" height="225" fill="#EC4899" opacity="0.7"/>
+  <text x="150" y="115" font-family="monospace" font-size="16" fill="#fff" text-anchor="middle" opacity="0.9">google</text>
+</svg>

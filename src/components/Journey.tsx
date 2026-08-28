@@ -10,42 +10,36 @@ import {
   School,
   Sparkles,
 } from 'lucide-react'
-import { education, type Education } from '../data'
+import { useI18n } from '../i18n'
 import { EASE, staggerContainer, staggerItem, viewport } from '../lib/motion'
 
 type IconProps = { className?: string }
 
-const levelIcon: Record<Education['level'], ComponentType<IconProps>> = {
+type Level = 'sd' | 'mts' | 'smk' | 'university'
+type Status = 'completed' | 'current' | 'plan'
+
+const levelIcon: Record<Level, ComponentType<IconProps>> = {
   sd: School,
   mts: Library,
   smk: Code2,
   university: GraduationCap,
 }
 
-const statusMeta: Record<
-  Education['status'],
-  { label: string; icon: ComponentType<IconProps>; chipClass: string }
-> = {
-  completed: {
-    label: 'Lulus',
-    icon: CheckCheck,
-    chipClass: 'border-[var(--muted)]/25 text-[var(--muted)]',
-  },
-  current: {
-    label: 'Sedang Berjalan',
-    icon: Rocket,
-    chipClass: 'border-[#6C63FF]/50 bg-[#6C63FF]/10 text-[#6C63FF]',
-  },
-  plan: {
-    label: 'Rencana',
-    icon: Sparkles,
-    chipClass: 'border-dashed border-[#6C63FF]/40 text-[#6C63FF]',
-  },
+const statusIcon: Record<Status, ComponentType<IconProps>> = {
+  completed: CheckCheck,
+  current: Rocket,
+  plan: Sparkles,
 }
 
-function TimelineItem({ item }: { item: Education }) {
-  const LevelIcon = levelIcon[item.level]
-  const StatusIcon = statusMeta[item.status].icon
+function TimelineItem({
+  item,
+  statusLabel,
+}: {
+  item: ReturnType<typeof useI18n>['data']['education'][number]
+  statusLabel: string
+}) {
+  const LevelIcon = levelIcon[item.level as Level]
+  const StatusIcon = statusIcon[item.status as Status]
   const isCurrent = item.status === 'current'
   const isPlan = item.status === 'plan'
 
@@ -95,10 +89,16 @@ function TimelineItem({ item }: { item: Education }) {
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span
-            className={`flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest ${statusMeta[item.status].chipClass}`}
+            className={`flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest ${
+              isCurrent
+                ? 'border-[#6C63FF]/50 bg-[#6C63FF]/10 text-[#6C63FF]'
+                : isPlan
+                  ? 'border-dashed border-[#6C63FF]/40 text-[#6C63FF]'
+                  : 'border-[var(--muted)]/25 text-[var(--muted)]'
+            }`}
           >
             <StatusIcon className="h-3 w-3" />
-            {statusMeta[item.status].label}
+            {statusLabel}
           </span>
           <span className="font-mono text-xs font-semibold tracking-widest text-[#6C63FF]">
             {item.period}
@@ -121,6 +121,8 @@ function TimelineItem({ item }: { item: Education }) {
 }
 
 export function Journey() {
+  const { locale, data } = useI18n()
+
   return (
     <motion.div
       initial="hidden"
@@ -135,17 +137,16 @@ export function Journey() {
           className="mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
         >
           <span className="inline-block h-px w-8 bg-[#6C63FF]" />
-          My Journey
+          {locale.journey.kicker}
         </motion.p>
         <motion.h3
           variants={staggerItem}
           className="font-display text-3xl font-bold tracking-tight md:text-5xl"
         >
-          Education <span className="text-[#6C63FF]">timeline</span>
+          {locale.journey.title} <span className="text-[#6C63FF]">{locale.journey.titleHighlight}</span>
         </motion.h3>
         <motion.p variants={staggerItem} className="mt-4 max-w-xl text-[var(--muted)]">
-          Dari bangku sekolah dasar hingga target kuliah — setiap langkah kecil
-          membentuk cara saya berpikir dan berkarya.
+          {locale.journey.desc}
         </motion.p>
       </motion.div>
 
@@ -153,7 +154,7 @@ export function Journey() {
         {/* Animated timeline spine */}
         <motion.span
           aria-hidden
-          className="absolute left-6 top-8 bottom-8 w-px bg-gradient-to-b from-[#6C63FF] via-[#6C63FF]/45 to-[var(--muted)]/10"
+          className="absolute bottom-8 left-6 top-8 w-px bg-gradient-to-b from-[#6C63FF] via-[#6C63FF]/45 to-[var(--muted)]/10"
           style={{ originY: 0 }}
           initial={{ scaleY: 0, opacity: 0 }}
           whileInView={{ scaleY: 1, opacity: 1 }}
@@ -162,8 +163,12 @@ export function Journey() {
         />
 
         <ol className="relative">
-          {education.map((item) => (
-            <TimelineItem key={item.school} item={item} />
+          {data.education.map((item) => (
+            <TimelineItem
+              key={item.id}
+              item={item}
+              statusLabel={locale.journey.statusLabels[item.status] ?? ''}
+            />
           ))}
         </ol>
       </div>

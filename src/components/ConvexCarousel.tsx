@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as RPointerEvent, type ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import { EASE, viewport } from '../lib/motion'
+import { useI18n } from '../i18n'
 
 interface ConvexCarouselProps {
   children: (register: (fn: () => void) => () => void, windowHalf: number) => ReactNode
@@ -9,19 +10,14 @@ interface ConvexCarouselProps {
   className?: string
 }
 
-/**
- * Horizontal, infinitely-looping carousel with a convex "fabric pull" effect.
- *
- * Render the same content twice (or more) as direct flex children and this
- * track will wrap seamlessly at the halfway point while cards are reprojected
- * so the centre card faces the viewer and edges angle away like a cylinder.
- */
 export function ConvexCarousel({
   children,
-  hintText = '← Drag to explore →',
+  hintText,
   ariaLabel,
   className = '',
 }: ConvexCarouselProps) {
+  const { locale } = useI18n()
+  const resolvedHint = hintText ?? locale.work.hint
   const updatersRef = useRef<Array<() => void>>([])
   const rafRef = useRef(0)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -36,7 +32,7 @@ export function ConvexCarousel({
   )
 
   const startDrag = useCallback((e: RPointerEvent<HTMLDivElement>) => {
-    // Let touch / pen use native smooth scrolling; only mouse grabs the fabric.
+
     if (e.pointerType !== 'mouse') return
     const el = trackRef.current
     if (!el) return
@@ -129,7 +125,7 @@ export function ConvexCarousel({
         {children(register, windowHalf)}
       </div>
       <p className="site-container mt-2 text-center font-mono text-xs uppercase tracking-widest text-[var(--muted)]">
-        {hintText}
+        {resolvedHint}
       </p>
     </motion.div>
   )

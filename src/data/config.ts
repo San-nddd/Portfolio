@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
-// MASTER DATA FILE — ALL SITE CONTENT & ASSET PATHS
-// Update this file to publish your own content. The static site reads
-// everything from here.
+// SINGLE CONFIG FILE — ALL SITE CONTENT & ASSET PATHS
+// Swap your own content here. The rest of the site reads everything from this
+// file (re-exported as `data`).
 //
 // NOTE: Image paths use `import.meta.env.BASE_URL` so they resolve correctly
 // whether you're running locally (`/`) or on GitHub Pages under a repo
@@ -11,8 +11,8 @@
 
 const base = import.meta.env.BASE_URL
 
-export const logoPath = `${base}logo.svg` 
-export const portraitPhotoPath = `${base}portrait.png` 
+export const logoPath = `${base}logo.svg`
+export const portraitPhotoPath = `${base}portrait.png`
 
 export interface SocialLink {
   name: string
@@ -21,7 +21,7 @@ export interface SocialLink {
 
 export interface Skill {
   name: string
-  icon: string 
+  icon: string
   category: string
 }
 
@@ -57,7 +57,6 @@ export interface Trait {
 }
 
 export interface Education {
-  id: number
   period: string
   school: string
   location: string
@@ -69,12 +68,11 @@ export interface Education {
 export const personalInfo = {
   name: 'AHSAN',
   firstName: 'Ahsan',
-  fullName: 'Ahsan Mahmud Fauzi Yusry',
   lastName: 'AHSAN',
   role: 'Full Stack Web App Developer',
   roleBadge: 'React.js  •  Laravel',
   focusText: 'I build full-stack web applications that are fast, accessible, and beautiful to interact with',
-  headline: "I'm Ahsan Full Stack Developer focused on React and Laravel",
+  headline: "I'm Ahsan — Full Stack Developer focused on React and Laravel",
   title: 'Full Stack Web App Developer',
   skills: ['React.js', 'Laravel'],
   bio: "I'm a full-stack web developer who lives at the intersection of engineering precision and visual storytelling. I believe great software feels inevitable — every transition, every micro-interaction, every pixel placed with intention. Over the years I've helped startups and studios ship products people genuinely love to use.",
@@ -88,13 +86,15 @@ export const personalInfo = {
   ] as SocialLink[],
 }
 
-export const coffeeLink = 'https://saweria.co/Sandda' 
+export const coffeeLink = 'https://saweria.co/Sandda'
 
 export const stats = {
-  projectsCount:  3,
+  projectsCount: 3,
   yearsExperience: 3,
   certificatesCount: 1,
 }
+
+export const earthColor = '#3ce4a3'
 
 export const skills = [
   { name: 'React', category: 'Frontend', icon: 'react' },
@@ -142,7 +142,6 @@ export const traits = [
 
 export const education = [
   {
-    id: 1,
     period: '2015 — 2021',
     school: 'SDN Kamal',
     location: 'Kamal',
@@ -151,7 +150,6 @@ export const education = [
     level: 'sd',
   },
   {
-    id: 2,
     period: '2021 — 2024',
     school: 'MTSS Darul Hikmah Sukawangi',
     location: 'Sukawangi',
@@ -160,7 +158,6 @@ export const education = [
     level: 'mts',
   },
   {
-    id: 3,
     period: '2024 — Sekarang',
     school: 'SMK Negeri 1 Sumedang',
     location: 'Sumedang',
@@ -169,7 +166,6 @@ export const education = [
     level: 'smk',
   },
   {
-    id: 4,
     period: '2027 — 2030',
     school: 'Universitas Padjadjaran (UNPAD)',
     location: 'Jatinangor',

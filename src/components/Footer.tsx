@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import { personalInfo } from '../data'
+import { useI18n } from '../i18n'
 
 export function Footer() {
+  const { locale, data } = useI18n()
   const year = new Date().getFullYear()
   return (
     <footer className="border-t border-[var(--muted)]/15 px-6 py-12">
@@ -12,7 +13,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="font-display text-sm font-bold"
         >
-          {personalInfo.name}
+          {data.name}
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
@@ -20,8 +21,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="font-mono text-xs text-[var(--muted)]"
         >
-          © {year} {personalInfo.name}. Built with React, Tailwind & Framer
-          Motion.
+          © {year} {data.name}. {locale.footer.built}
         </motion.p>
         <motion.a
           href="#top"
@@ -31,7 +31,7 @@ export function Footer() {
           whileHover={{ y: -3 }}
           className="font-mono text-xs text-[#6C63FF] hover:underline"
         >
-          Back to top ↑
+          {locale.footer.backToTop}
         </motion.a>
       </div>
     </footer>

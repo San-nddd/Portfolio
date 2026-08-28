@@ -4,7 +4,7 @@ import {
   SiReact,
   SiJavascript,
   SiHtml5,
-SiCss,
+  SiCss,
   SiLaravel,
   SiPhp,
   SiTailwindcss,
@@ -12,10 +12,11 @@ SiCss,
   SiMysql,
   SiFigma,
   SiGit,
+  SiGithub,
   SiOpencode,
 } from 'react-icons/si'
 import { TbApi } from 'react-icons/tb'
-import { skills, services } from '../data'
+import { useI18n } from '../i18n'
 import { staggerContainer, staggerItem, viewport } from '../lib/motion'
 
 type IconProps = { className?: string }
@@ -32,6 +33,7 @@ const iconDefs: Record<string, ComponentType<IconProps>> = {
   mysql: SiMysql,
   figma: SiFigma,
   git: SiGit,
+  github: SiGithub,
   opencode: SiOpencode,
   api: TbApi,
 }
@@ -64,6 +66,8 @@ function TechTile({ icon, label }: { icon: string; label: string }) {
 }
 
 export function Capabilities() {
+  const { locale, data } = useI18n()
+
   return (
     <section id="capabilities" className="section-pad px-6">
       <div className="site-container grid grid-cols-1 gap-10 md:grid-cols-2 lg:gap-14">
@@ -79,17 +83,16 @@ export function Capabilities() {
               variants={staggerItem}
               className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
             >
-              My Toolkit
+              {locale.capabilities.kicker}
             </motion.p>
             <motion.h2
               variants={staggerItem}
               className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl"
             >
-              Capabilities
+              {locale.capabilities.title}
             </motion.h2>
             <motion.p variants={staggerItem} className="mt-4 max-w-md text-[var(--muted)]">
-              The technologies I reach for every day to bring ideas to life — hover for a
-              closer look.
+              {locale.capabilities.desc}
             </motion.p>
           </motion.div>
 
@@ -100,7 +103,7 @@ export function Capabilities() {
             viewport={viewport}
             className="mt-10 grid grid-cols-4 gap-3 sm:grid-cols-6"
           >
-            {skills.map((skill) => (
+            {data.skills.map((skill) => (
               <TechTile key={skill.name} icon={skill.icon} label={skill.name} />
             ))}
           </motion.div>
@@ -115,10 +118,10 @@ export function Capabilities() {
             viewport={viewport}
             className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
           >
-            What I Can Do
+            {locale.capabilities.what}
           </motion.p>
           <div className="mt-8 space-y-4">
-            {services.map((service, i) => (
+            {data.services.map((service, i) => (
               <motion.div
                 key={service.num}
                 initial={{ opacity: 0, y: 30 }}

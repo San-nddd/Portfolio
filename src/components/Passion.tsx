@@ -1,18 +1,24 @@
 import { motion } from 'framer-motion'
 import { Camera, HeartHandshake } from 'lucide-react'
-import { passions, type PassionItem } from '../data'
+import { useI18n } from '../i18n'
 import { staggerContainer, staggerItem, viewport } from '../lib/motion'
 import { useConvexCard } from '../lib/useConvexCard'
 import { ConvexCarousel } from './ConvexCarousel'
+
+type LocalizedPassion = ReturnType<typeof useI18n>['data']['passions'][number]
 
 function PassionCard({
   item,
   register,
   windowHalf,
+  photoLabel,
+  hobbyLabel,
 }: {
-  item: PassionItem
+  item: LocalizedPassion
   register: (fn: () => void) => () => void
   windowHalf: number
+  photoLabel: string
+  hobbyLabel: string
 }) {
   const { containerRef, style } = useConvexCard(register, windowHalf)
   const isHobby = item.category === 'Hobbies'
@@ -39,7 +45,7 @@ function PassionCard({
             }`}
           >
             {isHobby ? <HeartHandshake className="h-3 w-3" /> : <Camera className="h-3 w-3" />}
-            {item.category}
+            {item.category === 'Hobbies' ? hobbyLabel : photoLabel}
           </span>
           <div className="absolute inset-x-0 bottom-0 p-5 text-white">
             <h3 className="font-display text-xl font-bold">{item.title}</h3>
@@ -52,6 +58,8 @@ function PassionCard({
 }
 
 export function Passion() {
+  const { locale, data } = useI18n()
+
   return (
     <section id="passion" className="section-pad overflow-hidden px-6">
       <div className="site-container">
@@ -64,23 +72,32 @@ export function Passion() {
         >
           <motion.div variants={staggerItem}>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
-              Beyond the code
+              {locale.passion.kicker}
             </p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">
-              Passions & Hobbies
+              {locale.passion.title}
             </h2>
           </motion.div>
           <motion.p variants={staggerItem} className="max-w-sm text-[var(--muted)]">
-            When I'm not shipping software, I'm out chasing light and the things
-            that keep me curious — drag or scroll to keep going.
+            {locale.passion.desc}
           </motion.p>
         </motion.div>
       </div>
 
-      <ConvexCarousel ariaLabel="Passions and hobbies carousel" hintText="← Drag the camera lens →">
+      <ConvexCarousel
+        ariaLabel={locale.passion.aria}
+        hintText={locale.passion.hint}
+      >
         {(register, windowHalf) =>
-          [...passions, ...passions].map((item, i) => (
-            <PassionCard key={`${item.id}-${i}`} item={item} register={register} windowHalf={windowHalf} />
+          [...data.passions, ...data.passions].map((item, i) => (
+            <PassionCard
+              key={`${item.id}-${i}`}
+              item={item}
+              register={register}
+              windowHalf={windowHalf}
+              photoLabel={locale.passion.photo}
+              hobbyLabel={locale.passion.hobby}
+            />
           ))
         }
       </ConvexCarousel>

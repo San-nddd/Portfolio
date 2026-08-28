@@ -1,37 +1,47 @@
 import { motion } from 'framer-motion'
 import { Mail, Github, Instagram, ArrowUpRight } from 'lucide-react'
 import { SiTiktok } from 'react-icons/si'
-import { personalInfo } from '../data'
+import type { ComponentType } from 'react'
+import { useI18n } from '../i18n'
 import { viewport } from '../lib/motion'
 
-const contactItems = [
-  {
-    label: 'Email',
-    value: personalInfo.email,
-    href: `mailto:${personalInfo.email}`,
-    icon: Mail,
-  },
-  {
-    label: 'GitHub',
-    value: 'github.com/San-nddd',
-    href: 'https://github.com/San-nddd',
-    icon: Github,
-  },
-  {
-    label: 'Instagram',
-    value: 'instagram.com/san_nddd',
-    href: 'https://www.instagram.com/san_nddd?igsi=OHJ4cXI4MmZ3bHJ3',
-    icon: Instagram,
-  },
-  {
-    label: 'TikTok',
-    value: 'tiktok.com/@publik_codm',
-    href: 'https://www.tiktok.com/@publik_codm',
-    icon: SiTiktok,
-  },
-]
+type IconProps = { className?: string }
 
 export function Contact() {
+  const { locale, data } = useI18n()
+
+  const contactItems: {
+    label: string
+    value: string
+    href: string
+    icon: ComponentType<IconProps>
+  }[] = [
+    {
+      label: 'Email',
+      value: data.email,
+      href: `mailto:${data.email}`,
+      icon: Mail,
+    },
+    {
+      label: 'GitHub',
+      value: 'github.com/San-nddd',
+      href: 'https://github.com/San-nddd',
+      icon: Github,
+    },
+    {
+      label: 'Instagram',
+      value: 'instagram.com/san_nddd',
+      href: 'https://www.instagram.com/san_nddd?igsi=OHJ4cXI4MmZ3bHJ3',
+      icon: Instagram,
+    },
+    {
+      label: 'TikTok',
+      value: 'tiktok.com/@publik_codm',
+      href: 'https://www.tiktok.com/@publik_codm',
+      icon: SiTiktok as ComponentType<IconProps>,
+    },
+  ]
+
   return (
     <section id="contact" className="section-pad px-6">
       <div className="site-container max-w-6xl text-center">
@@ -41,7 +51,7 @@ export function Contact() {
           viewport={viewport}
           className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
         >
-          Got a project in mind?
+          {locale.contact.kicker}
         </motion.p>
 
         <motion.h2
@@ -51,9 +61,9 @@ export function Contact() {
           transition={{ duration: 0.9, delay: 0.1 }}
           className="mt-4 font-display text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
         >
-          LET'S WORK
+          {locale.contact.line1}
           <br />
-          <span className="text-[#6C63FF]">TOGETHER</span>
+          <span className="text-[#6C63FF]">{locale.contact.line2}</span>
         </motion.h2>
 
         <motion.p
@@ -63,8 +73,7 @@ export function Contact() {
           transition={{ delay: 0.2 }}
           className="mx-auto mt-6 max-w-md text-[var(--muted)]"
         >
-          Open to freelance projects, collaborations and full-time opportunities.
-          Reach out through any channel below.
+          {locale.contact.desc}
         </motion.p>
 
         {/* Giant typography-driven clickable list */}

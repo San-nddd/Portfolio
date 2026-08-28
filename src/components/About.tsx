@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
-import { personalInfo, traits } from '../data'
+import { useI18n } from '../i18n'
 import { staggerContainer, staggerItem, viewport } from '../lib/motion'
 import { Journey } from './Journey'
 
 export function About() {
+  const { locale, data } = useI18n()
+
   return (
     <section id="about" className="section-pad px-6">
       <div className="site-container">
@@ -15,13 +17,13 @@ export function About() {
           className="max-w-3xl"
         >
           <motion.p variants={staggerItem} className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
-            About Me
+            {locale.about.kicker}
           </motion.p>
           <motion.h2
             variants={staggerItem}
             className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl"
           >
-            A bit about who I am
+            {locale.about.title}
           </motion.h2>
         </motion.div>
 
@@ -33,7 +35,7 @@ export function About() {
             whileInView="visible"
             viewport={viewport}
           >
-            {personalInfo.bio.split(/(?<=\.)\s/).map((sentence, i) => {
+            {data.bio.split(/(?<=\.)\s/).map((sentence, i) => {
               const isKey = /intersection|intention|love to use/.test(sentence)
               return (
                 <motion.p
@@ -74,10 +76,10 @@ export function About() {
               variants={staggerItem}
               className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-[var(--muted)]"
             >
-              — Traits I bring to every project
+              {locale.about.traitsLabel}
             </motion.p>
             <div className="flex flex-wrap items-start gap-4">
-              {traits.map((trait) => (
+              {data.traits.map((trait) => (
                 <motion.span
                   key={trait.label}
                   variants={staggerItem}
@@ -98,7 +100,7 @@ export function About() {
               variants={staggerItem}
               className="mt-6 font-mono text-xs uppercase tracking-widest text-[var(--muted)]"
             >
-              ↕ Try dragging the badges around
+              {locale.about.dragHint}
             </motion.p>
           </motion.div>
         </div>

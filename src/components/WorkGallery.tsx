@@ -1,20 +1,23 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github } from 'lucide-react'
-import { projects, type Project } from '../data'
+import { useI18n } from '../i18n'
 import { staggerContainer, staggerItem, viewport } from '../lib/motion'
 import { useConvexCard } from '../lib/useConvexCard'
 import { ConvexCarousel } from './ConvexCarousel'
+
+type LocalizedProject = ReturnType<typeof useI18n>['data']['projects'][number]
 
 function ConvexCard({
   project,
   register,
   windowHalf,
 }: {
-  project: Project
+  project: LocalizedProject
   register: (fn: () => void) => () => void
   windowHalf: number
 }) {
   const { containerRef, style } = useConvexCard(register, windowHalf)
+  const { locale } = useI18n()
 
   return (
     <div className="w-[260px] shrink-0 sm:w-[300px]">
@@ -34,7 +37,7 @@ function ConvexCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           {project.highlight && (
             <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-black">
-              {project.highlight}
+              {locale.ui.featured}
             </span>
           )}
           <div className="absolute right-3 top-3 flex gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100">
@@ -82,6 +85,9 @@ function ConvexCard({
 }
 
 export function WorkGallery() {
+  const { locale, data } = useI18n()
+  const projects = data.projects
+
   return (
     <section id="work" className="section-pad overflow-hidden px-6">
       <div className="site-container">
@@ -94,22 +100,22 @@ export function WorkGallery() {
         >
           <motion.div variants={staggerItem}>
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
-              Selected Work
+              {locale.work.kicker}
             </p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">
-              Things I've Built
+              {locale.work.title}
             </h2>
           </motion.div>
           <motion.p variants={staggerItem} className="max-w-sm text-[var(--muted)]">
-            A living, convex showcase — drag or scroll and it wraps endlessly.
-            Cards in the centre face you; edges angle away like a cylinder.
+            {locale.work.desc}
           </motion.p>
         </motion.div>
       </div>
 
       <ConvexCarousel
         className="pt-4 md:pt-6"
-        ariaLabel="Selected projects carousel"
+        ariaLabel={locale.work.aria}
+        hintText={locale.work.hint}
       >
         {(register, windowHalf) =>
           [...projects, ...projects].map((project, i) => (

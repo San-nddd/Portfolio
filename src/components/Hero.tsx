@@ -7,7 +7,7 @@ import {
   useTransform,
   useScroll,
 } from 'framer-motion'
-import { personalInfo, portraitPhotoPath, stats } from '../data'
+import { useI18n } from '../i18n'
 import { EASE } from '../lib/motion'
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
@@ -34,21 +34,9 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   )
 }
 
-const headlineWords = [
-  "I'm",
-  'Ahsan',
-  '—',
-  'Full',
-  'Stack',
-  'Developer',
-  'focused',
-  'on',
-  'React',
-  '&',
-  'Laravel',
-]
-
 export function Hero({ start }: { start: boolean }) {
+  const { locale, data } = useI18n()
+  const headlineLines = locale.hero.headline
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll()
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 140])
@@ -68,14 +56,14 @@ export function Hero({ start }: { start: boolean }) {
         <motion.div
           className="flex shrink-0"
           animate={{ x: ['0%', '-50%'] }}
-          transition={{ repeat: Infinity, ease: 'linear', duration: 34 }}
+          transition={{ repeat: Infinity, ease: 'linear', duration: 60 }}
         >
           {[...Array(2)].map((_, dup) => (
             <span
               key={dup}
               className="text-outline whitespace-nowrap font-display text-[24vw] font-extrabold leading-none tracking-tight"
             >
-              {personalInfo.lastName}&nbsp;—&nbsp;{personalInfo.skills.join(' • ')}&nbsp;—&nbsp;
+              {data.lastName}&nbsp;—&nbsp;{data.skills.map((s) => s.name).join(' • ')}&nbsp;—&nbsp;
             </span>
           ))}
         </motion.div>
@@ -109,8 +97,8 @@ export function Hero({ start }: { start: boolean }) {
         >
           {/* TODO: REPLACE PORTRAIT PHOTO HERE. Use a transparent PNG/WEBP. */}
           <img
-            src={portraitPhotoPath}
-            alt={`Portrait of ${personalInfo.firstName}`}
+            src={data.portrait}
+            alt={locale.hero.portraitAlt}
             className="relative z-10 w-full"
             draggable={false}
           />
@@ -137,10 +125,10 @@ export function Hero({ start }: { start: boolean }) {
             className="rounded-2xl border border-[var(--muted)]/20 bg-[var(--bg)]/90 px-5 py-4 backdrop-blur theme-transition"
           >
             <span className="font-display text-3xl font-bold text-[#6C63FF]">
-              <Counter target={stats.projectsCount} suffix="+" />
+              <Counter target={data.stats.projectsCount} suffix="+" />
             </span>
             <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-              Projects
+              {locale.hero.projects}
             </div>
           </motion.div>
         </div>
@@ -152,10 +140,10 @@ export function Hero({ start }: { start: boolean }) {
             className="rounded-2xl border border-[var(--muted)]/20 bg-[var(--bg)]/90 px-5 py-4 backdrop-blur theme-transition"
           >
             <span className="font-display text-3xl font-bold text-[#6C63FF]">
-              <Counter target={stats.yearsExperience} suffix="" />
+              <Counter target={data.stats.yearsExperience} suffix="" />
             </span>
             <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
-              Years
+              {locale.hero.years}
             </div>
           </motion.div>
         </div>
@@ -169,22 +157,32 @@ export function Hero({ start }: { start: boolean }) {
         transition={{ delay: 0.9, duration: 0.8 }}
       >
         <h1 className="font-display text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
-          {headlineWords.map((word, i) => (
-            <span
-              key={`w-${i}`}
-              className="inline-block overflow-hidden align-top"
-            >
-              <motion.span
-                className={`inline-block ${
-                  word === 'Ahsan' ? 'text-[#6C63FF]' : 'text-[var(--fg)]'
-                }`}
-                initial={{ y: '100%', opacity: 0 }}
-                animate={start ? { y: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, ease: EASE, delay: 1.1 + i * 0.05 }}
-              >
-                {word}
-              </motion.span>
-              {'\u00A0'}
+          {headlineLines.map((line, lineIdx) => (
+            <span key={`line-${lineIdx}`} className="block">
+              {lineIdx > 0 && <br className="hidden" />}
+              {line.map((word, i) => {
+                const global = headlineLines
+                  .slice(0, lineIdx)
+                  .reduce((acc, l) => acc + l.length, 0) + i
+                return (
+                  <span
+                    key={`w-${lineIdx}-${i}`}
+                    className="inline-block overflow-hidden align-top"
+                  >
+                    <motion.span
+                      className={`inline-block ${
+                        word === 'Ahsan' ? 'text-[#6C63FF]' : 'text-[var(--fg)]'
+                      }`}
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={start ? { y: 0, opacity: 1 } : {}}
+                      transition={{ duration: 0.5, ease: EASE, delay: 1.1 + global * 0.05 }}
+                    >
+                      {word}
+                    </motion.span>
+                    {'\u00A0'}
+                  </span>
+                )
+              })}
             </span>
           ))}
         </h1>

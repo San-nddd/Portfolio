@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
 import { HandCoins } from 'lucide-react'
-import { coffeeLink } from '../data'
+import { useI18n } from '../i18n'
 
 export function CoffeeWidget() {
+  const { locale, data } = useI18n()
   return (
     <motion.a
-      href={coffeeLink}
+      href={data.coffee}
       target="_blank"
       rel="noreferrer"
       className="group fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full border border-[#6C63FF]/40 bg-[var(--bg)]/90 px-4 py-3 shadow-xl backdrop-blur theme-transition hover:border-[#6C63FF]"
@@ -21,7 +22,7 @@ export function CoffeeWidget() {
       >
         <HandCoins className="h-5 w-5 text-[#6C63FF]" />
       </motion.span>
-      <span className="hidden text-sm font-medium sm:block">Sawer aku</span>
+      <span className="hidden text-sm font-medium sm:block">{locale.coffee}</span>
     </motion.a>
   )
 }

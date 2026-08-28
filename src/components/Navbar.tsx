@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Moon, Sun, Download, Menu, X } from 'lucide-react'
+import { Moon, Sun, Download, Menu, X, Languages } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext'
-import { navLinks, personalInfo, logoPath } from '../data'
+import { useI18n } from '../i18n'
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { locale, data, lang, toggleLang } = useI18n()
+  const navItems = locale.nav
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState(
-    () => window.location.hash.replace('#', '') || navLinks[0].toLowerCase()
+    () => window.location.hash.replace('#', '') || navItems[0].id
   )
   const activeSectionRef = useRef(activeSection)
   activeSectionRef.current = activeSection
@@ -24,9 +26,9 @@ export function Navbar() {
   // last clicked link. Runs on scroll/resize, rAF-throttled.
   useEffect(() => {
     let raf = 0
-    const ids = navLinks.map((l) => l.toLowerCase())
+    const ids = navItems.map((l) => l.id)
     const updateSpy = () => {
-      const offset = 128 // fixed navbar height + breathing room
+      const offset = 128
       let current = ids[0]
       for (const id of ids) {
         const el = document.getElementById(id)
@@ -49,7 +51,7 @@ export function Navbar() {
       window.removeEventListener('resize', schedule)
       cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [navItems])
 
   useEffect(() => {
     const onHashChange = () =>
@@ -70,7 +72,6 @@ export function Navbar() {
       transition={{ delay: 0.3, duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
     >
       <nav className="site-container flex items-center justify-between py-4">
-        
         <motion.a
           href="#"
           className="flex items-center"
@@ -78,8 +79,8 @@ export function Navbar() {
           whileTap={{ scale: 0.98 }}
         >
           <img
-            src={logoPath}
-            alt={`${personalInfo.name} logo`}
+            src={data.logo}
+            alt={`${data.name} logo`}
             className="h-9 w-9 object-contain"
             draggable={false}
           />
@@ -87,13 +88,12 @@ export function Navbar() {
 
         {/* Center links */}
         <div className="hidden items-center gap-1.5 md:flex">
-          {navLinks.map((link) => {
-            const id = link.toLowerCase()
-            const active = activeSection === id
+          {navItems.map((item) => {
+            const active = activeSection === item.id
             return (
               <a
-                key={link}
-                href={`#${id}`}
+                key={item.id}
+                href={`#${item.id}`}
                 className="relative rounded-full px-4 py-2 text-sm font-medium text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
               >
                 {active && (
@@ -103,7 +103,7 @@ export function Navbar() {
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{link}</span>
+                <span className="relative z-10">{item.label}</span>
               </a>
             )
           })}
@@ -112,8 +112,19 @@ export function Navbar() {
         {/* Right controls */}
         <div className="flex items-center gap-2 sm:gap-3">
           <motion.button
+            onClick={toggleLang}
+            aria-label={locale.ui.toggleLang}
+            className="flex h-10 items-center gap-1.5 rounded-full border border-[var(--muted)]/25 px-3 font-mono text-xs uppercase tracking-widest transition-colors hover:border-[#6C63FF]/50"
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Languages className="h-4 w-4" />
+            {lang === 'en' ? 'ID' : 'EN'}
+          </motion.button>
+
+          <motion.button
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            aria-label={locale.ui.toggleTheme}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -133,20 +144,20 @@ export function Navbar() {
           </motion.button>
 
           <motion.a
-            href={personalInfo.resumeLink}
+            href={data.resume}
             target="_blank"
             rel="noreferrer"
             className="hidden items-center gap-2 rounded-full bg-[#6C63FF] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 transition-colors hover:bg-[#5a54e0] sm:flex"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
           >
-            <Download className="h-4 w-4" /> Resume
+            <Download className="h-4 w-4" /> {locale.ui.resume}
           </motion.a>
 
           {/* Mobile menu toggle */}
           <motion.button
             onClick={() => setMobileOpen((o) => !o)}
-            aria-label="Toggle navigation menu"
+            aria-label={locale.ui.toggleMenu}
             aria-expanded={mobileOpen}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50 md:hidden"
             whileTap={{ scale: 0.9 }}
@@ -177,13 +188,12 @@ export function Navbar() {
             className="overflow-hidden border-t border-[var(--muted)]/10 bg-[var(--bg)]/95 backdrop-blur-xl md:hidden"
           >
             <div className="site-container flex flex-col gap-1 py-4">
-              {navLinks.map((link, i) => {
-                const id = link.toLowerCase()
-                const active = activeSection === id
+              {navItems.map((item, i) => {
+                const active = activeSection === item.id
                 return (
                   <motion.a
-                    key={link}
-                    href={`#${id}`}
+                    key={item.id}
+                    href={`#${item.id}`}
                     onClick={() => setMobileOpen(false)}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -194,7 +204,7 @@ export function Navbar() {
                         : 'text-[var(--fg)] hover:bg-[var(--muted)]/5'
                     }`}
                   >
-                    {link}
+                    {item.label}
                     <span className="font-mono text-[10px] text-[var(--muted)]">
                       0{i + 1}
                     </span>
@@ -202,7 +212,7 @@ export function Navbar() {
                 )
               })}
               <motion.a
-                href={personalInfo.resumeLink}
+                href={data.resume}
                 target="_blank"
                 rel="noreferrer"
                 initial={{ opacity: 0, x: -20 }}
@@ -210,7 +220,7 @@ export function Navbar() {
                 transition={{ delay: 0.3 }}
                 className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[#6C63FF] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 sm:hidden"
               >
-                <Download className="h-4 w-4" /> Resume
+                <Download className="h-4 w-4" /> {locale.ui.resume}
               </motion.a>
             </div>
           </motion.nav>

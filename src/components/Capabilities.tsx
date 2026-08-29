@@ -52,7 +52,7 @@ function TechTile({ icon, label }: { icon: string; label: string }) {
         className="flex flex-col items-center gap-1"
       >
         <Icon className="h-7 w-7 text-[var(--muted)] transition-all duration-300 group-hover:scale-110 group-hover:text-[#6C63FF]" />
-        <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--muted)] opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--muted)] opacity-100">
           {label}
         </span>
       </motion.div>

@@ -246,10 +246,7 @@ export const projects = [
   },
 ] as Project[]
 
-// ---------------------------------------------------------------------------
-// PASSIONS — Photography & Hobbies showcase.
-// Replace the placeholder images in /public/passion/ with your own photos.
-// ---------------------------------------------------------------------------
+
 export const passions = [
   {
     id: 1,

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Mengubah base path agar sesuai dengan Vercel
+  base: '/', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

@@ -96,19 +96,19 @@ export function Contact() {
                   hidden: { opacity: 0, x: -70, filter: 'blur(4px)' },
                   visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } },
                 }}
-                className="group flex items-center justify-between gap-4 py-6 md:py-8"
+                className="group flex items-center justify-between gap-3 py-6 md:gap-6 md:py-8"
               >
-                <div className="flex items-center gap-4 md:gap-6">
-                  <Icon className="h-5 w-5 text-[#6C63FF]" />
+                <div className="flex min-w-0 shrink items-center gap-3 md:gap-6">
+                  <Icon className="h-5 w-5 shrink-0 text-[#6C63FF]" />
                   <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--muted)] md:text-sm">
                     {item.label}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-base font-semibold transition-colors group-hover:text-[#6C63FF] md:text-2xl">
+                <div className="flex min-w-0 items-center gap-2 md:gap-3">
+                  <span className="min-w-0 truncate font-display text-sm font-semibold transition-colors group-hover:text-[#6C63FF] md:text-2xl">
                     {item.value}
                   </span>
-                  <ArrowUpRight className="h-5 w-5 text-[var(--muted)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#6C63FF]" />
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--muted)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#6C63FF]" />
                 </div>
               </motion.a>
             )

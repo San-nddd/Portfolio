@@ -54,13 +54,14 @@ export function Hero({ start }: { start: boolean }) {
         aria-hidden
       >
         <motion.div
-          className="flex shrink-0"
-          animate={{ x: ['0%', '-50%'] }}
+          className="flex w-max shrink-0"
+          animate={{ x: ['0%', '-25%'] }}
           transition={{ repeat: Infinity, ease: 'linear', duration: 60 }}
         >
-          {[...Array(2)].map((_, dup) => (
+          {[...Array(4)].map((_, dup) => (
             <span
               key={dup}
+              aria-hidden
               className="text-outline whitespace-nowrap font-display text-[24vw] font-extrabold leading-none tracking-tight"
             >
               {data.lastName}&nbsp;—&nbsp;{data.skills.map((s) => s.name).join(' • ')}&nbsp;—&nbsp;

@@ -28,15 +28,28 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
+    /* `clip` (not `hidden`) lets this double as a horizontal-overflow safety
+       net WITHOUT turning <body> into a scroll container — `hidden` on body
+       breaks position:fixed on iOS Safari (navbar scrolls away / stops
+       being tappable). */
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+    /* Keep the layout viewport exactly as wide as the device. Without this,
+       mobile browsers that auto-inflate text can shrink the effective width,
+       leaving content narrower than the screen (empty strip on the right). */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     margin: 0;
+    width: 100%;
     background-color: var(--bg);
     color: var(--fg);
     font-family: 'Space Grotesk', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior-x: none;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 

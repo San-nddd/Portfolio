@@ -28,9 +28,9 @@ function PassionCard({
       <motion.article
         ref={containerRef}
         style={style}
-        className="group relative overflow-hidden rounded-2xl border border-[var(--muted)]/15 theme-transition hover:border-[#6C63FF]/40"
+        className="group relative overflow-hidden rounded-2xl border border-[var(--muted)]/15 theme-transition hover:border-[#3B82F6]/40"
       >
-        <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#6C63FF]/40 to-transparent">
+        <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#3B82F6]/40 to-transparent">
           <img
             src={item.image}
             alt={item.title}
@@ -41,7 +41,7 @@ function PassionCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
           <span
             className={`absolute left-4 top-4 flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-black ${
-              isHobby ? 'bg-white/90' : 'bg-[#6C63FF] text-white'
+              isHobby ? 'bg-white/90' : 'bg-[#3B82F6] text-white'
             }`}
           >
             {isHobby ? <HeartHandshake className="h-3 w-3" /> : <Camera className="h-3 w-3" />}
@@ -71,7 +71,7 @@ export function Passion() {
           className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
         >
           <motion.div variants={staggerItem}>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]">
               {locale.passion.kicker}
             </p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">

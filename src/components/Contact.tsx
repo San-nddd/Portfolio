@@ -49,7 +49,7 @@ export function Contact() {
           initial={{ opacity: 0, y: 40, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={viewport}
-          className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
+          className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]"
         >
           {locale.contact.kicker}
         </motion.p>
@@ -63,7 +63,7 @@ export function Contact() {
         >
           {locale.contact.line1}
           <br />
-          <span className="text-[#6C63FF]">{locale.contact.line2}</span>
+          <span className="text-[#3B82F6]">{locale.contact.line2}</span>
         </motion.h2>
 
         <motion.p
@@ -99,16 +99,16 @@ export function Contact() {
                 className="group flex items-center justify-between gap-3 py-6 md:gap-6 md:py-8"
               >
                 <div className="flex min-w-0 shrink items-center gap-3 md:gap-6">
-                  <Icon className="h-5 w-5 shrink-0 text-[#6C63FF]" />
+                  <Icon className="h-5 w-5 shrink-0 text-[#3B82F6]" />
                   <span className="font-mono text-xs uppercase tracking-[0.3em] text-[var(--muted)] md:text-sm">
                     {item.label}
                   </span>
                 </div>
                 <div className="flex min-w-0 items-center gap-2 md:gap-3">
-                  <span className="min-w-0 truncate font-display text-sm font-semibold transition-colors group-hover:text-[#6C63FF] md:text-2xl">
+                  <span className="min-w-0 truncate font-display text-sm font-semibold transition-colors group-hover:text-[#3B82F6] md:text-2xl">
                     {item.value}
                   </span>
-                  <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--muted)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#6C63FF]" />
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-[var(--muted)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#3B82F6]" />
                 </div>
               </motion.a>
             )

@@ -24,9 +24,9 @@ function ConvexCard({
       <motion.article
         ref={containerRef}
         style={style}
-        className="group relative overflow-hidden rounded-2xl border border-[var(--muted)]/15 theme-transition hover:border-[#6C63FF]/40"
+        className="group relative overflow-hidden rounded-2xl border border-[var(--muted)]/15 theme-transition hover:border-[#3B82F6]/40"
       >
-        <div className="relative aspect-[16/11] overflow-hidden bg-gradient-to-br from-[#6C63FF]/40 to-transparent">
+        <div className="relative aspect-[16/11] overflow-hidden bg-gradient-to-br from-[#3B82F6]/40 to-transparent">
           <img
             src={project.image}
             alt={project.title}
@@ -55,14 +55,14 @@ function ConvexCard({
               target="_blank"
               rel="noreferrer"
               aria-label={`${project.title} demo`}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#6C63FF] text-white hover:bg-[#5a54e0]"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3B82F6] text-white hover:bg-[#2563EB]"
             >
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
         </div>
         <div className="p-5">
-          <p className="font-mono text-[11px] uppercase tracking-widest text-[#6C63FF]">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-[#3B82F6]">
             {project.category}
           </p>
           <h3 className="mt-1 font-display text-xl font-semibold transition-transform duration-300 group-hover:-translate-y-1">
@@ -72,7 +72,7 @@ function ConvexCard({
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-[var(--muted)]/20 px-2.5 py-1 font-mono text-[10px] text-[var(--muted)] transition-all duration-300 group-hover:border-[#6C63FF]/50 group-hover:text-[#6C63FF] group-hover:shadow-[0_0_12px_rgba(108,99,255,0.45)]"
+                className="rounded-full border border-[var(--muted)]/20 px-2.5 py-1 font-mono text-[10px] text-[var(--muted)] transition-all duration-300 group-hover:border-[#3B82F6]/50 group-hover:text-[#3B82F6] group-hover:shadow-[0_0_12px_rgba(59,130,246,0.45)]"
               >
                 {tech}
               </span>
@@ -99,7 +99,7 @@ export function WorkGallery() {
           className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
         >
           <motion.div variants={staggerItem}>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]">
               {locale.work.kicker}
             </p>
             <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">

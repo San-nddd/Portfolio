@@ -61,7 +61,7 @@ function TechTile({
       onMouseLeave={onLeave}
       animate={{ y: active ? -7 : 0 }}
       transition={{ type: 'spring', stiffness: 400, damping: 14 }}
-      className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border border-[var(--muted)]/15 bg-[var(--bg)] theme-transition hover:border-[#6C63FF]/50"
+      className="group relative flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border border-[var(--muted)]/15 bg-[var(--bg)] theme-transition hover:border-[#3B82F6]/50"
     >
       <motion.div
         animate={{ y: [0, -3, 0] }}
@@ -71,8 +71,8 @@ function TechTile({
         <Icon
           className={`h-7 w-7 transition-all duration-300 ${
             active
-              ? 'scale-110 text-[#6C63FF] drop-shadow-[0_0_10px_rgba(108,99,255,0.7)]'
-              : 'text-[var(--muted)] group-hover:scale-110 group-hover:text-[#6C63FF]'
+              ? 'scale-110 text-[#3B82F6] drop-shadow-[0_0_10px_rgba(59,130,246,0.7)]'
+              : 'text-[var(--muted)] group-hover:scale-110 group-hover:text-[#3B82F6]'
           }`}
         />
         <span className="font-mono text-[9px] uppercase tracking-wide text-[var(--muted)] opacity-100">
@@ -81,7 +81,7 @@ function TechTile({
       </motion.div>
       <motion.span
         className="pointer-events-none absolute inset-0 rounded-xl"
-        animate={{ boxShadow: active ? '0 0 28px rgba(108,99,255,0.45)' : '0 0 0px rgba(108,99,255,0)' }}
+        animate={{ boxShadow: active ? '0 0 28px rgba(59,130,246,0.45)' : '0 0 0px rgba(59,130,246,0)' }}
         transition={{ duration: 0.3 }}
       />
     </motion.div>
@@ -117,7 +117,7 @@ export function Capabilities() {
           >
             <motion.p
               variants={staggerItem}
-              className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
+              className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]"
             >
               {locale.capabilities.kicker}
             </motion.p>
@@ -160,7 +160,7 @@ export function Capabilities() {
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
-            className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
+            className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]"
           >
             {locale.capabilities.what}
           </motion.p>
@@ -172,10 +172,10 @@ export function Capabilities() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewport}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
-                className="group rounded-2xl border border-[var(--muted)]/15 p-6 theme-transition hover:border-[#6C63FF]/40 hover:bg-[#6C63FF]/5"
+                className="group rounded-2xl border border-[var(--muted)]/15 p-6 theme-transition hover:border-[#3B82F6]/40 hover:bg-[#3B82F6]/5"
               >
                 <div className="flex items-baseline gap-5">
-                  <span className="font-mono text-sm text-[#6C63FF]">{service.num}</span>
+                  <span className="font-mono text-sm text-[#3B82F6]">{service.num}</span>
                   <h3 className="font-display text-xl font-semibold">{service.title}</h3>
                 </div>
                 <p className="mt-3 pl-10 text-[var(--muted)]">{service.description}</p>
@@ -183,7 +183,7 @@ export function Capabilities() {
                   {service.skills.map((s) => (
                     <span
                       key={s}
-                      className="rounded-full border border-[#6C63FF]/30 bg-[#6C63FF]/10 px-3 py-1 font-mono text-xs text-[#6C63FF]"
+                      className="rounded-full border border-[#3B82F6]/30 bg-[#3B82F6]/10 px-3 py-1 font-mono text-xs text-[#3B82F6]"
                     >
                       {s}
                     </span>

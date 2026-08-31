@@ -54,16 +54,16 @@ function TimelineItem({
           transition={{ type: 'spring', stiffness: 260, damping: 18, delay: 0.15 }}
           className={`relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-[2.5px] bg-[var(--bg)] text-[var(--muted)] theme-transition ${
             isCurrent
-              ? 'border-[#6C63FF] text-[#6C63FF] shadow-[0_0_24px_rgba(108,99,255,0.45)]'
+              ? 'border-[#3B82F6] text-[#3B82F6] shadow-[0_0_24px_rgba(59,130,246,0.45)]'
               : isPlan
-                ? 'border-dashed border-[#6C63FF]/50 text-[#6C63FF]/80'
+                ? 'border-dashed border-[#3B82F6]/50 text-[#3B82F6]/80'
                 : 'border-[var(--muted)]/30'
           }`}
         >
           <LevelIcon className="h-5 w-5" />
           {isCurrent && (
             <motion.span
-              className="absolute inset-0 rounded-2xl bg-[#6C63FF]/35"
+              className="absolute inset-0 rounded-2xl bg-[#3B82F6]/35"
               animate={{ scale: [1, 1.45], opacity: [0.7, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: 'easeOut' }}
             />
@@ -78,11 +78,11 @@ function TimelineItem({
         viewport={viewport}
         transition={{ duration: 0.8, ease: EASE }}
         whileHover={{ y: -4 }}
-        className="group relative mb-8 w-full rounded-2xl border border-[var(--muted)]/15 bg-[var(--bg)] p-6 theme-transition hover:border-[#6C63FF]/40 hover:shadow-[0_0_36px_rgba(108,99,255,0.18)] md:mb-10 md:p-7"
+        className="group relative mb-8 w-full rounded-2xl border border-[var(--muted)]/15 bg-[var(--bg)] p-6 theme-transition hover:border-[#3B82F6]/40 hover:shadow-[0_0_36px_rgba(59,130,246,0.18)] md:mb-10 md:p-7"
       >
         {/* Top accent line on hover */}
         <span
-          className={`pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-[#6C63FF] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60 ${
+          className={`pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-[#3B82F6] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-60 ${
             isCurrent || isPlan ? 'opacity-40' : ''
           }`}
         />
@@ -91,16 +91,16 @@ function TimelineItem({
           <span
             className={`flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest ${
               isCurrent
-                ? 'border-[#6C63FF]/50 bg-[#6C63FF]/10 text-[#6C63FF]'
+                ? 'border-[#3B82F6]/50 bg-[#3B82F6]/10 text-[#3B82F6]'
                 : isPlan
-                  ? 'border-dashed border-[#6C63FF]/40 text-[#6C63FF]'
+                  ? 'border-dashed border-[#3B82F6]/40 text-[#3B82F6]'
                   : 'border-[var(--muted)]/25 text-[var(--muted)]'
             }`}
           >
             <StatusIcon className="h-3 w-3" />
             {statusLabel}
           </span>
-          <span className="font-mono text-xs font-semibold tracking-widest text-[#6C63FF]">
+          <span className="font-mono text-xs font-semibold tracking-widest text-[#3B82F6]">
             {item.period}
           </span>
         </div>
@@ -109,7 +109,7 @@ function TimelineItem({
           {item.school}
         </h3>
         <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-[var(--muted)]">
-          <MapPin className="h-3.5 w-3.5 text-[#6C63FF]" />
+          <MapPin className="h-3.5 w-3.5 text-[#3B82F6]" />
           {item.location}
         </p>
         <p className="mt-3.5 max-w-xl text-sm leading-relaxed text-[var(--muted)] md:text-[15px]">
@@ -134,16 +134,16 @@ export function Journey() {
       <motion.div variants={staggerItem} className="mb-12">
         <motion.p
           variants={staggerItem}
-          className="mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]"
+          className="mb-3 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]"
         >
-          <span className="inline-block h-px w-8 bg-[#6C63FF]" />
+          <span className="inline-block h-px w-8 bg-[#3B82F6]" />
           {locale.journey.kicker}
         </motion.p>
         <motion.h3
           variants={staggerItem}
           className="font-display text-3xl font-bold tracking-tight md:text-5xl"
         >
-          {locale.journey.title} <span className="text-[#6C63FF]">{locale.journey.titleHighlight}</span>
+          {locale.journey.title} <span className="text-[#3B82F6]">{locale.journey.titleHighlight}</span>
         </motion.h3>
         <motion.p variants={staggerItem} className="mt-4 max-w-xl text-[var(--muted)]">
           {locale.journey.desc}
@@ -154,7 +154,7 @@ export function Journey() {
         {/* Animated timeline spine */}
         <motion.span
           aria-hidden
-          className="absolute bottom-8 left-6 top-8 w-px bg-gradient-to-b from-[#6C63FF] via-[#6C63FF]/45 to-[var(--muted)]/10"
+          className="absolute bottom-8 left-6 top-8 w-px bg-gradient-to-b from-[#3B82F6] via-[#3B82F6]/45 to-[var(--muted)]/10"
           style={{ originY: 0 }}
           initial={{ scaleY: 0, opacity: 0 }}
           whileInView={{ scaleY: 1, opacity: 1 }}

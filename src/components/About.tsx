@@ -16,7 +16,7 @@ export function About() {
           viewport={viewport}
           className="max-w-3xl"
         >
-          <motion.p variants={staggerItem} className="font-mono text-xs uppercase tracking-[0.3em] text-[#6C63FF]">
+          <motion.p variants={staggerItem} className="font-mono text-xs uppercase tracking-[0.3em] text-[#3B82F6]">
             {locale.about.kicker}
           </motion.p>
           <motion.h2
@@ -48,7 +48,7 @@ export function About() {
                       {sentence.split(' ').map((word, j) => (
                         <motion.span
                           key={j}
-                          className="inline-block bg-gradient-to-r from-[#6C63FF] to-[#8B84FF] bg-[length:0%_40%] bg-left-bottom bg-no-repeat px-0.5 text-[var(--fg)]"
+                          className="inline-block bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-[length:0%_40%] bg-left-bottom bg-no-repeat px-0.5 text-[var(--fg)]"
                           whileInView={{ backgroundSize: '100% 40%' }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.3 + j * 0.02, duration: 0.6 }}
@@ -90,7 +90,7 @@ export function About() {
                   whileHover={{ scale: 1.08, y: -4 }}
                   whileDrag={{ scale: 1.14, zIndex: 30 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                  className="cursor-grab select-none rounded-full border border-[#6C63FF]/30 bg-[#6C63FF]/10 px-5 py-2.5 font-medium text-[var(--fg)] transition-colors hover:border-[#6C63FF] hover:bg-[#6C63FF]/20 active:cursor-grabbing"
+                  className="cursor-grab select-none rounded-full border border-[#3B82F6]/30 bg-[#3B82F6]/10 px-5 py-2.5 font-medium text-[var(--fg)] transition-colors hover:border-[#3B82F6] hover:bg-[#3B82F6]/20 active:cursor-grabbing"
                 >
                   {trait.label}
                 </motion.span>

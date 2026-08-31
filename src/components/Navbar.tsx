@@ -122,7 +122,7 @@ export function Navbar() {
                 {active && (
                   <motion.span
                     layoutId="activeTab"
-                    className="absolute inset-0 rounded-full border border-[#6C63FF]/40 bg-[#6C63FF]/10"
+                    className="absolute inset-0 rounded-full border border-[#3B82F6]/40 bg-[#3B82F6]/10"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -137,7 +137,7 @@ export function Navbar() {
           <motion.button
             onClick={toggleLang}
             aria-label={locale.ui.toggleLang}
-            className="flex h-10 touch-manipulation items-center gap-1.5 rounded-full border border-[var(--muted)]/25 px-3 font-mono text-xs uppercase tracking-widest transition-colors hover:border-[#6C63FF]/50"
+            className="flex h-10 touch-manipulation items-center gap-1.5 rounded-full border border-[var(--muted)]/25 px-3 font-mono text-xs uppercase tracking-widest transition-colors hover:border-[#3B82F6]/50"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -148,7 +148,7 @@ export function Navbar() {
           <motion.button
             onClick={toggleTheme}
             aria-label={locale.ui.toggleTheme}
-            className="flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50"
+            className="flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#3B82F6]/50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -170,7 +170,7 @@ export function Navbar() {
             href={data.resume}
             target="_blank"
             rel="noreferrer"
-            className="hidden touch-manipulation items-center gap-2 rounded-full bg-[#6C63FF] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 transition-colors hover:bg-[#5a54e0] sm:flex"
+            className="hidden touch-manipulation items-center gap-2 rounded-full bg-[#3B82F6] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#3B82F6]/25 transition-colors hover:bg-[#2563EB] sm:flex"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -182,7 +182,7 @@ export function Navbar() {
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={locale.ui.toggleMenu}
             aria-expanded={mobileOpen}
-            className="flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#6C63FF]/50 md:hidden"
+            className="flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-[var(--muted)]/25 transition-colors hover:border-[#3B82F6]/50 md:hidden"
             whileTap={{ scale: 0.9 }}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -226,7 +226,7 @@ export function Navbar() {
                     transition={{ delay: 0.05 + i * 0.05 }}
                     className={`flex touch-manipulation items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
                       active
-                        ? 'border border-[#6C63FF]/40 bg-[#6C63FF]/10 text-[#6C63FF]'
+                        ? 'border border-[#3B82F6]/40 bg-[#3B82F6]/10 text-[#3B82F6]'
                         : 'text-[var(--fg)] hover:bg-[var(--muted)]/5'
                     }`}
                   >
@@ -244,7 +244,7 @@ export function Navbar() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mt-2 flex touch-manipulation items-center justify-center gap-2 rounded-xl bg-[#6C63FF] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#6C63FF]/25 sm:hidden"
+                className="mt-2 flex touch-manipulation items-center justify-center gap-2 rounded-xl bg-[#3B82F6] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#3B82F6]/25 sm:hidden"
               >
                 <Download className="h-4 w-4" /> {locale.ui.resume}
               </motion.a>

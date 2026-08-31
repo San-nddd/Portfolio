@@ -7,8 +7,8 @@ export default {
       colors: {
         ink: '#0D0D0D',
         paper: '#F6F5F2',
-        accent: ' #2c1bc7',
-        'accent-soft': '#3a30ff',
+        accent: '#1d4ed8',
+        'accent-soft': '#3b82f6',
       },
       fontFamily: {
         display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],

@@ -82,7 +82,7 @@ export function Hero({ start }: { start: boolean }) {
           className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-70 blur-3xl"
           style={{
             background:
-              'radial-gradient(circle at 50% 45%, rgba(108,99,255,0.55), transparent 65%)',
+              'radial-gradient(circle at 50% 45%, rgba(59,130,246,0.55), transparent 65%)',
           }}
         />
         <motion.div
@@ -125,7 +125,7 @@ export function Hero({ start }: { start: boolean }) {
             transition={{ delay: 0.8, duration: 0.7 }}
             className="rounded-2xl border border-[var(--muted)]/20 bg-[var(--bg)]/90 px-5 py-4 backdrop-blur theme-transition"
           >
-            <span className="font-display text-3xl font-bold text-[#6C63FF]">
+            <span className="font-display text-3xl font-bold text-[#3B82F6]">
               <Counter target={data.stats.projectsCount} suffix="+" />
             </span>
             <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
@@ -140,7 +140,7 @@ export function Hero({ start }: { start: boolean }) {
             transition={{ delay: 0.95, duration: 0.7 }}
             className="rounded-2xl border border-[var(--muted)]/20 bg-[var(--bg)]/90 px-5 py-4 backdrop-blur theme-transition"
           >
-            <span className="font-display text-3xl font-bold text-[#6C63FF]">
+            <span className="font-display text-3xl font-bold text-[#3B82F6]">
               <Counter target={data.stats.yearsExperience} suffix="" />
             </span>
             <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--muted)]">
@@ -172,7 +172,7 @@ export function Hero({ start }: { start: boolean }) {
                   >
                     <motion.span
                       className={`inline-block ${
-                        word === 'Ahsan' ? 'text-[#6C63FF]' : 'text-[var(--fg)]'
+                        word === 'Ahsan' ? 'text-[#3B82F6]' : 'text-[var(--fg)]'
                       }`}
                       initial={{ y: '100%', opacity: 0 }}
                       animate={start ? { y: 0, opacity: 1 } : {}}

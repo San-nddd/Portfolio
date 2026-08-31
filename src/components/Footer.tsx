@@ -29,7 +29,7 @@ export function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           whileHover={{ y: -3 }}
-          className="font-mono text-xs text-[#6C63FF] hover:underline"
+          className="font-mono text-xs text-[#3B82F6] hover:underline"
         >
           {locale.footer.backToTop}
         </motion.a>

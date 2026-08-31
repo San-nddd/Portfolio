@@ -3,7 +3,7 @@ const path = require('path');
 const { SitemapStream, streamToPromise } = require('sitemap');
 
 // 1. Tentukan alamat domain utama website Anda
-const BASE_URL = 'https://domainanda.com';
+const BASE_URL = 'https://portfolio-ahsan-red.vercel.app';
 
 // 2. Daftar seluruh route/halaman aktif di aplikasi React Anda
 const links = [

@@ -12,7 +12,7 @@
 const base = import.meta.env.BASE_URL
 
 export const logoPath = `${base}logo.svg` 
-export const portraitPhotoPath = `${base}portrait.svg` 
+export const portraitPhotoPath = `${base}portrait.png` 
 
 export interface SocialLink {
   name: string
